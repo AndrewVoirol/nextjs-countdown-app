@@ -3,19 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --light-bg: #faf4ed;
+  --dark-bg: #0a0a0a;
+  --text-dark: #141414;
+  --text-light: #f8f8f8;
+  --card-bg-light: rgba(255, 255, 255, 0.7);
+  --card-bg-dark: rgba(30, 30, 30, 0.7);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply m-0 min-h-screen font-sans flex flex-col;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .light-section {
+    @apply bg-[--light-bg] text-[--text-dark] py-16 px-8;
+  }
+
+  .dark-section {
+    @apply bg-[--dark-bg] text-[--text-light] py-16 px-8 flex-grow;
+  }
+
+  .container {
+    @apply w-[90%] max-w-[1200px] mx-auto;
+  }
+
+  .countdown-wrapper {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-6 max-w-[800px] mx-auto mt-8;
+  }
+
+  .countdown-item {
+    @apply bg-[--card-bg-light] rounded-xl p-6 shadow-lg hover:-translate-y-1 transition-transform text-center;
+  }
+
+  .timezone-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 mt-8;
+  }
+
+  .timezone-card {
+    @apply bg-[--card-bg-dark] rounded-lg p-4 hover:-translate-y-1 transition-all hover:shadow-lg;
+  }
 }
