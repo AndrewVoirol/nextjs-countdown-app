@@ -13,4 +13,5 @@ export interface TimezoneInfo {
 export type TimeZone = Readonly<{
   name: string
   offset: number
+  region: 'Americas' | 'Europe' | 'Asia' | 'Oceania'
 }>

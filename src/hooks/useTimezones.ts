@@ -1,31 +1,34 @@
 // src/hooks/page.tsx
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import type { TimezoneInfo } from '@/types'
-import { getBaseLaunchDate, TIMEZONES } from '@/utils/constants'
+import { TIMEZONES, getBaseLaunchDate } from '@/utils/constants'
 
 export function useTimezones() {
-  const [timezones, setTimezones] = useState<ReadonlyArray<TimezoneInfo>>([])
+  const [timezones, setTimezones] = useState<TimezoneInfo[]>([])
 
-  const calculateTimezones = useCallback(() => {
-    const basePT = getBaseLaunchDate()
+  useEffect(() => {
+    const utcDate = getBaseLaunchDate()
     
-    return TIMEZONES.map(zone => {
-      const zoneDate = new Date(basePT.getTime() + (zone.offset + 8) * 60 * 60 * 1000)
+    const timezoneData = TIMEZONES.map(zone => {
+      const zoneDate = new Date(utcDate)
+      zoneDate.setHours(utcDate.getHours() + zone.offset)
+      
       return {
         name: zone.name,
+        region: zone.region,
         time: zoneDate.toLocaleTimeString('en-US', {
           hour: '2-digit',
           minute: '2-digit',
-          hour12: true
+          hour12: true,
+          timeZone: 'UTC'
         }),
-        nextDay: zoneDate.getDate() > basePT.getDate()
+        nextDay: zoneDate.getDate() > utcDate.getDate()
       }
     })
-  }, [])
 
-  useEffect(() => {
-    setTimezones(calculateTimezones())
-  }, [calculateTimezones])
+    console.log('Timezone data:', timezoneData) // Debug log
+    setTimezones(timezoneData)
+  }, [])
 
   return timezones
 }
