@@ -1,5 +1,5 @@
-import CountdownSection from './components/CountdownSection'
-import TimezoneSection from './components/TimezoneSection'
+import CountdownSection from '@/components/CountdownSection'
+import TimezoneSection from '@/components/TimezoneSection'
 
 export default function Home() {
   return (
