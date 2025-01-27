@@ -26,7 +26,6 @@ export function useTimezones() {
       }
     })
 
-    console.log('Timezone data:', timezoneData) // Debug log
     setTimezones(timezoneData)
   }, [])
 

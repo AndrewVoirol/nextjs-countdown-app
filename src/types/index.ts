@@ -4,14 +4,17 @@ export interface TimeUnit {
   readonly label: string;
 }
 
-export interface TimezoneInfo {
-  readonly name: string;
-  readonly time: string;
-  readonly nextDay: boolean;
-}
+export type Region = 'Americas' | 'Europe & Africa' | 'Asia & Oceania'
 
 export type TimeZone = Readonly<{
   name: string
   offset: number
-  region: 'Americas' | 'Europe' | 'Asia' | 'Oceania'
+  region: Region
+}>
+
+export type TimezoneInfo = Readonly<{
+  name: string
+  time: string
+  nextDay: boolean
+  region: Region
 }>
